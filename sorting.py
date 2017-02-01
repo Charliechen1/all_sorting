@@ -51,11 +51,28 @@ def selection_sort(arr):
         arr[i] = tmp
     return arr
 
-a = [5,3,2,1,4]
 
-#b = insertion_sort(a)
-#c = bubble_sort(a)
-#d = selection_sort(a)
-e = better_bubble_sort(a)
-print(e)
+def merge(a, b):
+    res = []
+    if len(a) is 0:
+        res = res + b
+        return res
+    if len(b) is 0:
+        res = res + a
+        return res
+    if a[0] > b[0]:
+        return res + [b[0]] + merge(a, b[1:])
+    if a[0] < b[0]:
+        return res + [a[0]] + merge(a[1:], b)
 
+
+def merge_sort(arr):
+    if len(arr) < 2:
+        return arr
+    else:
+        n = int(len(arr) / 2)
+        return merge(merge_sort(arr[:n]), merge_sort(arr[n:]))
+
+a = [2,4,1,3,5,7,6,-1,0,10,9,8]
+
+print(merge_sort(a))
