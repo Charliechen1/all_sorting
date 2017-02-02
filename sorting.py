@@ -1,3 +1,11 @@
+import random
+
+def swap(a, i, j):
+    tmp = a[i]
+    a[i] = a[j]
+    a[j] = tmp
+
+
 def insertion_sort(arr):
     if len(arr) < 1:
         return arr
@@ -33,9 +41,7 @@ def better_bubble_sort(arr):
         for j in range(1, n - i):
             j = n - j
             if arr[j] < arr[j - 1]:
-                tmp = arr[j]
-                arr[j] = arr[j - 1]
-                arr[j - 1] = tmp
+                swap(arr, j-1, j)
                 flag = True
     return arr
 
@@ -46,9 +52,7 @@ def selection_sort(arr):
         for j in range(i+1, n):
             if arr[min] > arr[j]:
                 min = j
-        tmp = arr[min]
-        arr[min] = arr[i]
-        arr[i] = tmp
+        swap(arr, i, min)
     return arr
 
 
@@ -73,6 +77,32 @@ def merge_sort(arr):
         n = int(len(arr) / 2)
         return merge(merge_sort(arr[:n]), merge_sort(arr[n:]))
 
-a = [2,4,1,3,5,7,6,-1,0,10,9,8]
+def random_quick_sort(arr):
+    n = len(arr)
+    if n < 2:
+        return arr
+    p_arr, pivot = particition(arr)
+    res = random_quick_sort(p_arr[:pivot]) + [arr[pivot]] + random_quick_sort(p_arr[pivot + 1 : n])
+    return res
 
-print(merge_sort(a))
+def particition(arr):
+    n = len(arr)
+    pivot = random.randint(0, n - 1)
+    swap(arr, -1, pivot)
+    i = 0
+    j = n-2
+    while i <= j:
+        if arr[j] < arr[-1] < arr[i]:
+            swap(arr, i, j)
+        if arr[i] < arr[-1]:
+            i += 1
+        if arr[j] > arr[-1]:
+            j -= 1
+    swap(arr, -1, i)
+    return arr, i
+
+
+
+a = [2,4,1,3,5,7,6,0,9,8]
+b = [1, 0]
+print(random_quick_sort(a))
