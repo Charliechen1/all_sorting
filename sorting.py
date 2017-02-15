@@ -128,8 +128,28 @@ def build_max_heap(arr):
         max_heapify(arr, i)
     return arr
 
+def count_sort(arr, k=0):
+    mina = min(arr)
+    maxa = max(arr)
+    if k == 0:
+        k = maxa - mina + 1
+    l = len(arr)
+    B = [0] * l
+    C = [0] * k
+    for a in arr:
+        index = a - mina
+        C[index] += 1
+    for i in range(1, k):
+        C[i] = C[i] + C[i-1]
+    for i in reversed(range(l)):
+        index = arr[i] - mina
+        B[C[index]-1] = arr[i]
+        C[index] -= 1
+    return B
 
 
-a = [2,4,1,3,5,7,6,0,9,8]
+
+
+a = [2,4,1,3,5,7,6,0,9,8,-1,-3]
 b = [1, 0]
-print(max_heap_sort(a))
+print(count_sort(a))
