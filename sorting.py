@@ -1,9 +1,7 @@
 import random
 
 def swap(a, i, j):
-    tmp = a[i]
-    a[i] = a[j]
-    a[j] = tmp
+    a[i], a[j] = a[j], a[i]
 
 
 def insertion_sort(arr):
@@ -82,7 +80,9 @@ def random_quick_sort(arr):
     if n < 2:
         return arr
     p_arr, pivot = particition(arr)
-    res = random_quick_sort(p_arr[:pivot]) + [arr[pivot]] + random_quick_sort(p_arr[pivot + 1 : n])
+    res = random_quick_sort(p_arr[:pivot]) + \
+          [arr[pivot]] + \
+          random_quick_sort(p_arr[pivot + 1 : n])
     return res
 
 def particition(arr):
@@ -101,8 +101,35 @@ def particition(arr):
     swap(arr, -1, i)
     return arr, i
 
+def max_heap_sort(arr):
+    heap_size = len(arr)
+    build_max_heap(arr)
+    for i in range(1, heap_size):
+        swap(arr, 0, heap_size - i)
+        arr = max_heapify(arr[0 : heap_size - i], 0) + \
+              arr[heap_size - i : heap_size]
+    return arr
+
+def max_heapify(arr, i):
+    heap_size = len(arr)
+    largest = i
+    left, right = 2*i+1, 2*i+2
+    if left < heap_size and arr[left] > arr[largest]:
+        largest = left
+    if right < heap_size and arr[right] > arr[largest]:
+        largest = right
+    if largest != i:
+        swap(arr, i, largest)
+        max_heapify(arr, largest)
+    return arr
+
+def build_max_heap(arr):
+    for i in reversed(range(0, int(len(arr) / 2))):
+        max_heapify(arr, i)
+    return arr
+
 
 
 a = [2,4,1,3,5,7,6,0,9,8]
 b = [1, 0]
-print(random_quick_sort(a))
+print(max_heap_sort(a))
