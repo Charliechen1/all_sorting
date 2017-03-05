@@ -30,16 +30,9 @@ def  bubble_sort(arr):
 
 
 def better_bubble_sort(arr):
-    n = len(arr)
-    flag = True
-    for i in range(n):
-        if flag is False:
-            return arr
-        flag = False
-        for j in range(1, n - i):
-            j = n - j
-            if arr[j] < arr[j - 1]:
+    n = len(arr)/
                 swap(arr, j-1, j)
+                # here the flag = false means we find that the array has already been sorted, then nothing useless need to be doneuIKm.,
                 flag = True
     return arr
 
@@ -150,6 +143,6 @@ def count_sort(arr, k=0):
 
 
 
-a = [2,4,1,3,5,7,6,0,9,8,-1,-3]
+a = [2,4,1,3,5,5,5,5,7,6,0,9,8,-1,-3]
 b = [1, 0]
 print(count_sort(a))
